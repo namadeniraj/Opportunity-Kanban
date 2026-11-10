@@ -1,0 +1,295 @@
+<template>
+
+    <div class="pagebg">
+
+        <div class="title">
+            <lightning-card variant="brand" title="Opportunity Kanban" icon-name="standard:kanban" class="title">
+                <lightning-button label="Refresh Board" slot="actions" onclick={handleGlobalAction}></lightning-button>
+            </lightning-card>
+        </div>
+
+
+        <lightning-layout multiple-rows>
+
+            <lightning-layout-item size="12" medium-device-size="2" padding="around-small" class="kanbanborder">
+                <lightning-card variant="brand" title="Prospecting" class="innerCard">
+
+                    <template if:true={isLoading}>
+                        <div class="loadingContainer slds-is-relative">
+                            <lightning-spinner alternative-text="Loading Prospecting opportunities"
+                                size="small"></lightning-spinner>
+                        </div>
+                    </template>
+                    <template if:false={isLoading}>
+                        <template for:each={prospectingCards} for:item="opp">
+                            <div key={opp.id} class="myCard slds-m-around_small slds-is-relative">
+                                <lightning-card class="opportunityCard slds-text-heading_small">
+                                    <lightning-button-menu slot="actions" alternative-text="Show menu"
+                                        class="slds-p-left_medium" onselect={handleActionSelect} data-id={opp.Id}>
+                                        <lightning-menu-item value="edit" label="Edit Record"></lightning-menu-item>
+                                        <lightning-menu-item value="delete" label="Delete Record"></lightning-menu-item>
+                                        <lightning-menu-item value="changestage"
+                                            label="Change Stage"></lightning-menu-item>
+                                    </lightning-button-menu>
+                                    <h2 slot="title" class="slds-text-heading_small">
+                                        <a href="#" onclick={handleCardClick} data-id={opp.Id}>
+                                            <small>{opp.Name}</small>
+                                        </a>
+                                    </h2>
+                                    <div class="slds-p-left_small slds-p-bottom_small">
+                                        <small>
+                                            <p><strong>Stage:</strong> {opp.StageName}</p>
+                                            <p><strong>Amount:</strong> {opp.Amount}</p>
+                                            <p><strong>Owner:</strong> {opp.Owner.Name}</p>
+                                            <p><strong>Type:</strong> {opp.Type}</p>
+                                        </small>
+                                    </div>
+                                </lightning-card>
+                                <template if:true={opp.isUpdating}>
+                                    <div class="cardSpinner slds-is-absolute">
+                                        <lightning-spinner alternative-text="Updating opportunity" size="small">
+                                        </lightning-spinner>
+                                    </div>
+                                </template>
+                            </div>
+                        </template>
+                    </template>
+
+                </lightning-card>
+            </lightning-layout-item>
+            <lightning-layout-item size="12" medium-device-size="2" padding="around-small" class="kanbanborder">
+                <lightning-card variant="brand" title="Qualification / Needs Analysis">
+
+                    <template if:true={isLoading}>
+                        <div class="loadingContainer slds-is-relative">
+                            <lightning-spinner alternative-text="Loading Qualification opportunities"
+                                size="small"></lightning-spinner>
+                        </div>
+                    </template>
+                    <template if:false={isLoading}>
+                        <template for:each={qualificationNeedAnalysisCards} for:item="opp">
+                            <div key={opp.id} class="myCard slds-m-around_small slds-is-relative">
+                                <lightning-card class="opportunityCard slds-text-heading_small">
+                                    <lightning-button-menu slot="actions" alternative-text="Show menu"
+                                        class="slds-p-left_medium" onselect={handleActionSelect} data-id={opp.Id}>
+                                        <lightning-menu-item value="edit" label="Edit Record"></lightning-menu-item>
+                                        <lightning-menu-item value="delete" label="Delete Record"></lightning-menu-item>
+                                        <lightning-menu-item value="changestage"
+                                            label="Change Stage"></lightning-menu-item>
+                                    </lightning-button-menu>
+                                    <h2 slot="title" class="slds-text-heading_small">
+                                        <a href="#" onclick={handleCardClick} data-id={opp.Id}>
+                                            <small>{opp.Name}</small>
+                                        </a>
+                                    </h2>
+                                    <div class="slds-p-left_small slds-p-bottom_small">
+                                        <small>
+                                            <p><strong>Stage:</strong> {opp.StageName}</p>
+                                            <p><strong>Amount:</strong> {opp.Amount}</p>
+                                            <p><strong>Owner:</strong> {opp.Owner.Name}</p>
+                                            <p><strong>Type:</strong> {opp.Type}</p>
+                                        </small>
+                                    </div>
+                                </lightning-card>
+                                <template if:true={opp.isUpdating}>
+                                    <div class="cardSpinner slds-is-absolute">
+                                        <lightning-spinner alternative-text="Updating opportunity" size="small">
+                                        </lightning-spinner>
+                                    </div>
+                                </template>
+                            </div>
+                        </template>
+                    </template>
+
+                </lightning-card>
+            </lightning-layout-item>
+            <lightning-layout-item size="12" medium-device-size="2" padding="around-small" class="kanbanborder">
+                <lightning-card variant="brand" title="Value Proposition / Id. Decision Makers">
+
+                    <template if:true={isLoading}>
+                        <div class="loadingContainer slds-is-relative">
+                            <lightning-spinner alternative-text="Loading Value Proposition opportunities"
+                                size="small"></lightning-spinner>
+                        </div>
+                    </template>
+                    <template if:false={isLoading}>
+                        <template for:each={valuePropDecisionMakersCards} for:item="opp">
+                            <div key={opp.id} class="myCard slds-m-around_small slds-is-relative">
+                                <lightning-card class="opportunityCard slds-text-heading_small">
+                                    <lightning-button-menu slot="actions" alternative-text="Show menu"
+                                        class="slds-p-left_medium" onselect={handleActionSelect} data-id={opp.Id}>
+                                        <lightning-menu-item value="edit" label="Edit Record"></lightning-menu-item>
+                                        <lightning-menu-item value="delete" label="Delete Record"></lightning-menu-item>
+                                        <lightning-menu-item value="changestage"
+                                            label="Change Stage"></lightning-menu-item>
+                                    </lightning-button-menu>
+                                    <h2 slot="title" class="slds-text-heading_small">
+                                        <a href="#" onclick={handleCardClick} data-id={opp.Id}>
+                                            <small>{opp.Name}</small>
+                                        </a>
+                                    </h2>
+                                    <div class="slds-p-left_small slds-p-bottom_small">
+                                        <small>
+                                            <p><strong>Stage:</strong> {opp.StageName}</p>
+                                            <p><strong>Amount:</strong> {opp.Amount}</p>
+                                            <p><strong>Owner:</strong> {opp.Owner.Name}</p>
+                                            <p><strong>Type:</strong> {opp.Type}</p>
+                                        </small>
+                                    </div>
+                                </lightning-card>
+                                <template if:true={opp.isUpdating}>
+                                    <div class="cardSpinner slds-is-absolute">
+                                        <lightning-spinner alternative-text="Updating opportunity" size="small">
+                                        </lightning-spinner>
+                                    </div>
+                                </template>
+                            </div>
+                        </template>
+                    </template>
+
+                </lightning-card>
+            </lightning-layout-item>
+            <lightning-layout-item size="12" medium-device-size="2" padding="around-small" class="kanbanborder">
+                <lightning-card variant="brand" title="Perception Analysis / Proposal/Price Quote">
+
+                    <template if:true={isLoading}>
+                        <div class="loadingContainer slds-is-relative">
+                            <lightning-spinner alternative-text="Loading Proposal opportunities"
+                                size="small"></lightning-spinner>
+                        </div>
+                    </template>
+                    <template if:false={isLoading}>
+                        <template for:each={perceptionAnalysisProposalCards} for:item="opp">
+                            <div key={opp.id} class="myCard slds-m-around_small slds-is-relative">
+                                <lightning-card class="opportunityCard slds-text-heading_small">
+                                    <lightning-button-menu slot="actions" alternative-text="Show menu"
+                                        class="slds-p-left_medium" onselect={handleActionSelect} data-id={opp.Id}>
+                                        <lightning-menu-item value="edit" label="Edit Record"></lightning-menu-item>
+                                        <lightning-menu-item value="delete" label="Delete Record"></lightning-menu-item>
+                                        <lightning-menu-item value="changestage"
+                                            label="Change Stage"></lightning-menu-item>
+                                    </lightning-button-menu>
+                                    <h2 slot="title" class="slds-text-heading_small">
+                                        <a href="#" onclick={handleCardClick} data-id={opp.Id}>
+                                            <small>{opp.Name}</small>
+                                        </a>
+                                    </h2>
+                                    <div class="slds-p-left_small slds-p-bottom_small">
+                                        <small>
+                                            <p><strong>Stage:</strong> {opp.StageName}</p>
+                                            <p><strong>Amount:</strong> {opp.Amount}</p>
+                                            <p><strong>Owner:</strong> {opp.Owner.Name}</p>
+                                            <p><strong>Type:</strong> {opp.Type}</p>
+                                        </small>
+                                    </div>
+                                </lightning-card>
+                                <template if:true={opp.isUpdating}>
+                                    <div class="cardSpinner slds-is-absolute">
+                                        <lightning-spinner alternative-text="Updating opportunity" size="small">
+                                        </lightning-spinner>
+                                    </div>
+                                </template>
+                            </div>
+                        </template>
+                    </template>
+
+                </lightning-card>
+            </lightning-layout-item>
+            <lightning-layout-item size="12" medium-device-size="2" padding="around-small" class="kanbanborder">
+                <lightning-card variant="brand" title="Negotiation/Review">
+
+                    <template if:true={isLoading}>
+                        <div class="loadingContainer slds-is-relative">
+                            <lightning-spinner alternative-text="Loading Negotiation opportunities"
+                                size="small"></lightning-spinner>
+                        </div>
+                    </template>
+                    <template if:false={isLoading}>
+                        <template for:each={negotiationReviewCards} for:item="opp">
+                            <div key={opp.id} class="myCard slds-m-around_small slds-is-relative">
+                                <lightning-card class="opportunityCard slds-text-heading_small">
+                                    <lightning-button-menu slot="actions" alternative-text="Show menu"
+                                        class="slds-p-left_medium" onselect={handleActionSelect} data-id={opp.Id}>
+                                        <lightning-menu-item value="edit" label="Edit Record"></lightning-menu-item>
+                                        <lightning-menu-item value="delete" label="Delete Record"></lightning-menu-item>
+                                        <lightning-menu-item value="changestage"
+                                            label="Change Stage"></lightning-menu-item>
+                                    </lightning-button-menu>
+                                    <h2 slot="title" class="slds-text-heading_small">
+                                        <a href="#" onclick={handleCardClick} data-id={opp.Id}>
+                                            <small>{opp.Name}</small>
+                                        </a>
+                                    </h2>
+                                    <div class="slds-p-left_small slds-p-bottom_small">
+                                        <small>
+                                            <p><strong>Stage:</strong> {opp.StageName}</p>
+                                            <p><strong>Amount:</strong> {opp.Amount}</p>
+                                            <p><strong>Owner:</strong> {opp.Owner.Name}</p>
+                                            <p><strong>Type:</strong> {opp.Type}</p>
+                                        </small>
+                                    </div>
+                                </lightning-card>
+                                <template if:true={opp.isUpdating}>
+                                    <div class="cardSpinner slds-is-absolute">
+                                        <lightning-spinner alternative-text="Updating opportunity" size="small">
+                                        </lightning-spinner>
+                                    </div>
+                                </template>
+                            </div>
+                        </template>
+                    </template>
+
+                </lightning-card>
+            </lightning-layout-item>
+            <lightning-layout-item size="12" medium-device-size="2" padding="around-small" class="kanbanborder">
+                <lightning-card variant="brand" title="Closed Won / Closed Lost">
+
+                    <template if:true={isLoading}>
+                        <div class="loadingContainer slds-is-relative">
+                            <lightning-spinner alternative-text="Loading closed opportunities"
+                                size="small"></lightning-spinner>
+                        </div>
+                    </template>
+                    <template if:false={isLoading}>
+                        <template for:each={closedWonLostCards} for:item="opp">
+                            <div key={opp.id} class="myCard slds-m-around_small slds-is-relative">
+                                <lightning-card class="opportunityCard slds-text-heading_small">
+                                    <lightning-button-menu slot="actions" alternative-text="Show menu"
+                                        class="slds-p-left_medium" onselect={handleActionSelect} data-id={opp.Id}>
+                                        <lightning-menu-item value="edit" label="Edit Record"></lightning-menu-item>
+                                        <lightning-menu-item value="delete" label="Delete Record"></lightning-menu-item>
+                                        <lightning-menu-item value="changestage"
+                                            label="Change Stage"></lightning-menu-item>
+                                    </lightning-button-menu>
+                                    <h2 slot="title" class="slds-text-heading_small">
+                                        <a href="#" onclick={handleCardClick} data-id={opp.Id}>
+                                            <small>{opp.Name}</small>
+                                        </a>
+                                    </h2>
+                                    <div class="slds-p-left_small slds-p-bottom_small">
+                                        <small>
+                                            <p><strong>Stage:</strong> {opp.StageName}</p>
+                                            <p><strong>Amount:</strong> {opp.Amount}</p>
+                                            <p><strong>Owner:</strong> {opp.Owner.Name}</p>
+                                            <p><strong>Type:</strong> {opp.Type}</p>
+                                        </small>
+                                    </div>
+                                </lightning-card>
+                                <template if:true={opp.isUpdating}>
+                                    <div class="cardSpinner slds-is-absolute">
+                                        <lightning-spinner alternative-text="Updating opportunity" size="small">
+                                        </lightning-spinner>
+                                    </div>
+                                </template>
+                            </div>
+                        </template>
+                    </template>
+
+                </lightning-card>
+            </lightning-layout-item>
+
+        </lightning-layout>
+
+    </div>
+
+</template>

@@ -1,0 +1,14 @@
+<template>
+    <lightning-modal-header label="Change Opportunity Stage"></lightning-modal-header>
+    <lightning-modal-body>
+        <h2>
+            <Strong>Select desired stage for selected opportunity</Strong>
+        </h2>
+        <lightning-combobox name="Stage" label="Stage" value={selectedStage} placeholder="Select Stage" options={stageOptions} onchange={handleStageChange}></lightning-combobox>
+    </lightning-modal-body>
+    <lightning-modal-footer>
+        <lightning-button label="Close" onclick={handleClose}></lightning-button>
+        <lightning-button variant="brand" label="Save Stage" onclick={handleSave}
+            disabled={isSaveDisabled}></lightning-button>
+    </lightning-modal-footer>
+</template>

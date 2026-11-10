@@ -1,0 +1,30 @@
+.opportunityCard {
+    --slds-c-card-color-background: rgba(0, 161, 224, 0.1);
+}
+
+.opportunityCard:hover {
+    --slds-c-card-color-background: rgba(0, 255, 0, 0.244);
+}
+
+.loadingContainer {
+    min-height: 6rem;
+}
+
+.cardSpinner {
+    inset: 0;
+    z-index: 2;
+    background-color: rgba(255, 255, 255, 0.65);
+}
+
+.THIS .slds-truncate {
+    white-space: normal;
+}
+
+.title{
+    --slds-c-card-color-background: rgba(0, 161, 224);
+    background-color:rgba(0, 161, 224);
+}
+
+.pagebg{
+    background-color: rgb(238, 248, 252);
+}
